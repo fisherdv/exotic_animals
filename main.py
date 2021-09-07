@@ -1,22 +1,14 @@
-from flask import Flask, render_template
+from flask import Flask
+from my_blog.moduls.database import db
+from my_blog.routers.blog import bp_blog
 
 app = Flask(__name__)
 
-@app.route('/')
-def index():
-    return render_template('index.html')
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///test.db"
 
+db.init_app(app)
 
-@app.route('/<int:id>')
-def post(id: int):
-    return render_template('post.html')
-
-
-@app.route('/edit')
-@app.route('/edit/<int:id>')
-def edit(id: int = None):    
-    return render_template('edit.html')
-
+app.register_blueprint(bp_blog, url_prefix="/")
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0")
