@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Экзотические животные</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <nav class="col navbar navbar-expand-lg navbar-light bg-light my-4 rounded">
+                <a class="navbar-brand text-wrap" href="{{ url_for('index') }}">Экзотические <br
+                        class="d-block d-sm-none" /> животные</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                    <ul class="navbar-nav ml-auto">
+                        <a href="{{ url_for('edit', id=1) }}"
+                            class="btn btn-sm btn-primary mr-lg-1 mt-3 my-1 my-lg-auto ">Редактировать пост</a>
+                        <a href="{{ url_for('edit') }}" class="btn btn-sm btn-primary mr-lg-1 my-1 my-ly-auto">Добавить
+                            пост</a>
+                        <a href="#" class="btn btn-sm btn-success my-1 my-ly-auto" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            Войти
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <form class="px-4 py-3 ">
+                                <div class="form-group">
+                                    <label for="exampleDropdownFormEmail1">Логин</label>
+                                    <input type="text" class="form-control" id="exampleDropdownFormEmail1"
+                                        placeholder="Логин">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleDropdownFormPassword1">Пароль</label>
+                                    <input type="password" class="form-control" id="exampleDropdownFormPassword1"
+                                        placeholder="Пароль">
+                                </div>
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-sm btn-success float-right">
+                                        Войти
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </ul>
+
+                </div>
+            </nav>
+        </div>
+
+
+
+        {% block content %}
+        {% endblock %}
+
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+
+    {% block scripts %}
+    {% endblock %}
+</body>
+
+</html>

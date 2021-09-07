@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row d-flex justify-content-center">
+  <div class="col-12 col-sm-10 mb-4">
+    <form>
+      <div class="form-group">
+        <label for="title">Заголовок</label>
+        <input type="email" class="form-control" id="title" aria-describedby="title" placeholder="Введите заголовок">
+      </div>
+      <div class="form-group">
+        <label for="content">Контент</label>
+        <textarea class="form-control" id="content" rows="10"></textarea>
+      </div>
+      <div class="form-group">
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" id="inputGroupFile01">
+          <label id="custom-file-label" class="custom-file-label" for="inputGroupFile01">Выбрать файл</label>
+        </div>
+      </div>
+      <div id="image">
+        <img src="" class="rounded mx-auto d-block">
+      </div>      
+      <a href="{{ url_for('index') }}" class="btn btn-secondary ">Отмена</a>              
+      <div class="form-group float-right">        
+        <button type="submit" class="btn btn-secondary">Удалить</button>
+        <button type="submit" class="btn btn-primary ">Сохранить</button>                                
+      </div>
+      
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+<script>
+  const upload = document.querySelector('#inputGroupFile01');
+  const result = document.querySelector('#image');
+
+  upload.addEventListener("change", (e) => {
+    document.querySelector('.custom-file-label').textContent = upload.value;
+    previewFunc(e.target.files[0]);
+  });
+
+  function previewFunc(file) {
+    if (!file.type.match(/image.*/)) return false;
+    const reader = new FileReader();
+
+    reader.addEventListener("load", (e) => {
+      const img = document.createElement('img');
+      img.className = "rounded mx-auto d-block img-fluid";
+      img.src = e.target.result;
+      result.innerHTML = '';
+      result.append(img);
+    });
+    reader.readAsDataURL(file);
+  }
+</script>
+{% endblock %}
