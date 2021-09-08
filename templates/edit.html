@@ -2,31 +2,32 @@
 
 {% block content %}
 <div class="row d-flex justify-content-center">
-  <div class="col-12 col-sm-10 mb-4">
-    <form>
+  <div class="col-12 col-sm-10 mb-4">    
+    <form method="POST" action="{{  url_for('blog.edit', id=post.id ) if post else url_for('blog.edit') }}" enctype="multipart/form-data">    
       <div class="form-group">
         <label for="title">Заголовок</label>
-        <input type="email" class="form-control" id="title" aria-describedby="title" placeholder="Введите заголовок">
+        <input type="text" name="title" class="form-control" id="title" aria-describedby="title" placeholder="Введите заголовок" value="{{ post.title if post }}" required>
       </div>
       <div class="form-group">
         <label for="content">Контент</label>
-        <textarea class="form-control" id="content" rows="10"></textarea>
+        <textarea class="form-control" name="content" id="content" rows="10" required>{{ post.content if post }}</textarea>
       </div>
       <div class="form-group">
         <div class="custom-file">
-          <input type="file" class="custom-file-input" id="inputGroupFile01">
+          <input type="number" hidden name="file_id" value="{{post.file_id if post}}">
+          <input type="file" name="image" class="custom-file-input" id="inputGroupFile01">
           <label id="custom-file-label" class="custom-file-label" for="inputGroupFile01">Выбрать файл</label>
         </div>
       </div>
       <div id="image">
-        <img src="" class="rounded mx-auto d-block">
-      </div>      
-      <a href="{{ url_for('blog.index') }}" class="btn btn-secondary ">Отмена</a>              
-      <div class="form-group float-right">        
-        <button type="submit" class="btn btn-secondary">Удалить</button>
-        <button type="submit" class="btn btn-primary ">Сохранить</button>                                
+        <img src="{{ url_for('blog.uploaded_file', id=post.file_id) if post.file_id}}" class="rounded mx-auto img-fluid mb-3">
       </div>
-      
+      <a href="{{ url_for('blog.index') }}" class="btn btn-secondary ">Отмена</a>
+      <div class="form-group float-right">
+        <button type="submit" class="btn btn-secondary">Удалить</button>
+        <button type="submit" class="btn btn-primary ">Сохранить</button>
+      </div>
+
     </form>
   </div>
 </div>
@@ -49,7 +50,7 @@
 
     reader.addEventListener("load", (e) => {
       const img = document.createElement('img');
-      img.className = "rounded mx-auto d-block img-fluid";
+      img.className = "rounded mx-auto img-fluid mx-auto mb-3";
       img.src = e.target.result;
       result.innerHTML = '';
       result.append(img);

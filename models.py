@@ -1,4 +1,5 @@
-from sqlalchemy import MetaData, Table, Column, create_engine, Integer, String, ForeignKey, func
+from flask_login import UserMixin
+from sqlalchemy import MetaData, Table, Column, create_engine, Integer, String, ForeignKey, Text, func
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import scoped_session, sessionmaker, relationship, joinedload
 
@@ -16,7 +17,7 @@ assoc_post_tags = Table(
 )
 
 
-class User(Base):
+class User(Base, UserMixin):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True)
@@ -32,6 +33,7 @@ class Post(Base):
     id = Column(Integer, primary_key=True)
     title = Column(String(256), nullable=False)
     user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    content = Column(Text)
 
     user = relationship("User", backref="posts")
     tags = relationship("Tags", secondary=assoc_post_tags, back_populates="posts")
@@ -80,10 +82,10 @@ def create_posts():
         tag_birds = session.query(Tags).filter_by(name="Птицы").one_or_none()
         tag_fish = session.query(Tags).filter_by(name="Рыбы").one_or_none()
 
-        post_lira = Post(user_id=user.id, title="Макао Лира")
-        post_fly_eater = Post(user_id=user.id, title="Королевский венценосный мухоед")
-        post_flying_fish = Post(user_id=user.id, title="Летучая рыба")
-        post_fish = Post(user_id=user.id, title="Судак")
+        post_lira = Post(user_id=user.id, title="Макао Лира", content="content")
+        post_fly_eater = Post(user_id=user.id, title="Королевский венценосный мухоед", content="content")
+        post_flying_fish = Post(user_id=user.id, title="Летучая рыба", content="content")
+        post_fish = Post(user_id=user.id, title="Судак", content="content")
 
         post_lira.tags.append(tag_birds)
         post_fly_eater.tags.append(tag_birds)

@@ -1,23 +1,32 @@
 {% extends 'base.html' %}
 
+{% block navbar %}
+
+<a href="{{ url_for('blog.edit', id=post.id) }}" class="btn btn-sm btn-primary mr-lg-1 mt-3 my-1 my-lg-auto ">Редактировать
+    пост</a>
+
+{% endblock %}
+
+
 {% block content %}
+
 <div class="row d-flex justify-content-center">
     <div class="col-12 col-sm-10 mb-4">
         <div class="card border-white">
-            <h5 class="card-title">Card title</h5>
+            <h5 class="card-title">{{post.title}}</h5>
             <img class="card-img-top"
-                src="https://xn----itbakdewdc2aggj5k.xn--p1ai/wp-content/uploads/2018/10/koltsehvostyj-lemur-simpatichnoe-zhivotnoe.jpg"
+                src="{{ url_for('blog.uploaded_file', id=post.file_id) if post.file_id}}"
                 alt="Card image cap">
             <div class="card-body">
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of
-                    the card's content.
+                <p class="card-text">
+                    {{post.content}}                    
                 </p>
             </div>
         </div>
         <div>
             <a href="{{ url_for('blog.index') }}" class="btn btn-secondary float-right">Вернуться</a>
         </div>
-    </div>    
+    </div>
 </div>
 
 {% endblock %}

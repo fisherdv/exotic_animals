@@ -1,6 +1,14 @@
 from my_blog.moduls.database import db
 from .auth import User
 
+
+class Files(db.Model):
+    __tablename__ = "files"
+
+    id = db.Column(db.Integer, primary_key=True)
+    path = db.Column(db.String(256), nullable=False)
+
+
 assoc_post_tags = db.Table(
     "post_tags",
     db.metadata,
@@ -17,7 +25,9 @@ class Post(db.Model):
     content = db.Column(db.Text)
     user_id = db.Column(db.Integer, db.ForeignKey(
         "users.id", ondelete="CASCADE"), nullable=False)
+    file_id = db.Column(db.Integer, db.ForeignKey("files.id"))
 
+    file = db.relationship("Files")
     user = db.relationship("User", backref="posts")
     tags = db.relationship(
         "Tags", secondary=assoc_post_tags, back_populates="posts")

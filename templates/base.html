@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
     <meta charset="UTF-8">
@@ -26,9 +26,9 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-                    <ul class="navbar-nav ml-auto">
-                        <a href="{{ url_for('blog.edit', id=1) }}"
-                            class="btn btn-sm btn-primary mr-lg-1 mt-3 my-1 my-lg-auto ">Редактировать пост</a>
+                    <ul class="navbar-nav ml-auto">                        
+                        {% block navbar %}
+                        {% endblock %}
                         <a href="{{ url_for('blog.edit') }}" class="btn btn-sm btn-primary mr-lg-1 my-1 my-ly-auto">Добавить
                             пост</a>
                         <a href="#" class="btn btn-sm btn-success my-1 my-ly-auto" data-toggle="dropdown" aria-haspopup="true"
