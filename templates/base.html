@@ -29,31 +29,41 @@
                     <ul class="navbar-nav ml-auto">                        
                         {% block navbar %}
                         {% endblock %}
+                        {% if current_user.is_authenticated %}
                         <a href="{{ url_for('blog.edit') }}" class="btn btn-sm btn-primary mr-lg-1 my-1 my-ly-auto">Добавить
                             пост</a>
+                        <form action="{{ url_for('blog.logout') }}">
+                            <button type="submit" class="btn btn-sm btn-success my-1 my-ly-auto">Выйти</button>
+                        </form>
+                        {% else %}
+
                         <a href="#" class="btn btn-sm btn-success my-1 my-ly-auto" data-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
                             Войти
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <form class="px-4 py-3 ">
+                        <div class="dropdown-menu dropdown-menu-right {{ 'show' if message  }}">
+                            <form action="{{ url_for('blog.index') }}" method="post" class="px-4 py-3 ">
                                 <div class="form-group">
                                     <label for="exampleDropdownFormEmail1">Логин</label>
-                                    <input type="text" class="form-control" id="exampleDropdownFormEmail1"
+                                    <input type="text" name="username" class="form-control" id="exampleDropdownFormEmail1"
                                         placeholder="Логин">
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleDropdownFormPassword1">Пароль</label>
-                                    <input type="password" class="form-control" id="exampleDropdownFormPassword1"
+                                    <input type="password" name="password" class="form-control" id="exampleDropdownFormPassword1"
                                         placeholder="Пароль">
                                 </div>
+                                <div class="form-group text-danger">
+                                    {{message}}
+                                </div>
                                 <div class="form-group">
-                                    <button type="button" class="btn btn-sm btn-success float-right">
+                                    <button type="submit" class="btn btn-sm btn-success float-right">
                                         Войти
                                     </button>
                                 </div>
                             </form>
                         </div>
+                        {% endif %}
                     </ul>
 
                 </div>

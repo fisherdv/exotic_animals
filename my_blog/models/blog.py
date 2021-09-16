@@ -23,14 +23,12 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(256), nullable=False)
     content = db.Column(db.Text)
-    user_id = db.Column(db.Integer, db.ForeignKey(
-        "users.id", ondelete="CASCADE"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
     file_id = db.Column(db.Integer, db.ForeignKey("files.id"))
 
     file = db.relationship("Files")
     user = db.relationship("User", backref="posts")
-    tags = db.relationship(
-        "Tags", secondary=assoc_post_tags, back_populates="posts")
+    tags = db.relationship("Tags", secondary=assoc_post_tags, back_populates="posts")
 
     def __repr__(self):
         return str(self)
@@ -45,5 +43,4 @@ class Tags(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(256), unique=True, nullable=False)
 
-    posts = db.relationship(
-        "Post", secondary=assoc_post_tags, back_populates="tags")
+    posts = db.relationship("Post", secondary=assoc_post_tags, back_populates="tags")

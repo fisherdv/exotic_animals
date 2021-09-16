@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
 
 {% block navbar %}
-
+{% if current_user.is_authenticated %}
 <a href="{{ url_for('blog.edit', id=post.id) }}" class="btn btn-sm btn-primary mr-lg-1 mt-3 my-1 my-lg-auto ">Редактировать
     пост</a>
+{% endif %}
 
 {% endblock %}
 
@@ -14,7 +15,7 @@
     <div class="col-12 col-sm-10 mb-4">
         <div class="card border-white">
             <h5 class="card-title">{{post.title}}</h5>
-            <img class="card-img-top"
+            <img class="card-img-top" style="max-height: 600px; object-fit: contain;"
                 src="{{ url_for('blog.uploaded_file', id=post.file_id) if post.file_id}}"
                 alt="Card image cap">
             <div class="card-body">
