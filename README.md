@@ -16,7 +16,14 @@
 
 Сборка в Docker:
 
-```
+```sh
 docker build -t blog . 
 docker run --rm -p 5000:5000 -it blog
+```
+
+Для локальной сборки
+```sh
+flask db upgrade
+python models.py # необязательно, для наполнения контентом 
+python app.py
 ```
