@@ -161,8 +161,8 @@ def create_files():
 
 
 if __name__ == "__main__":
-    create_files()
     metadata.create_all()
+    create_files()
     create_users()
     create_tags()
     create_posts()
